@@ -81,9 +81,15 @@ export default function AdminDashboard() {
               <EventCard
                 key={event.id}
                 event={event}
-                // Override: provide only admin actions; do not expose register
+                // Only admin actions here; no register CTA
                 action={
                   <div className="flex gap-2 mt-3">
+                    <Link
+                      to={`/admin/events/${event.id}`} 
+                      className="flex-1 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-white hover:bg-white/20 transition text-center"
+                    >
+                      Manage
+                    </Link>
                     <Link
                       to={`/admin/edit/${event.id}`}
                       className="flex-1 rounded-full border border-blue-500 bg-blue-500/10 px-3 py-2 text-sm font-semibold text-blue-300 hover:bg-blue-500/20 transition text-center"

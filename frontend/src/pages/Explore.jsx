@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
+// Mock data (replace with API later)
 const ALL_EVENTS = [
   {
     id: 1,
@@ -31,7 +32,7 @@ const ALL_EVENTS = [
     category: "Workshop",
     image: "https://source.unsplash.com/800x500/?robotics,workshop",
     description:
-      "Hands-on workshop: build, code, and test your own robots. For beginners and enthusiasts.",
+      "Build, code, and test your own robots. Perfect for beginners and enthusiasts.",
   },
   {
     id: 4,
@@ -41,7 +42,7 @@ const ALL_EVENTS = [
     category: "Technology",
     image: "https://source.unsplash.com/800x500/?artificial,intelligence",
     description:
-      "A friendly intro to AI concepts, demos, and how to get started in the field.",
+      "Friendly introduction to AI concepts, demos, and how to get started.",
   },
   {
     id: 5,
@@ -114,13 +115,12 @@ export default function Explore() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("date-asc"); // date-asc | date-desc | title-asc
-  const [startDate, setStartDate] = useState(""); // yyyy-mm-dd
+  const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
   const filtered = useMemo(() => {
     let list = [...ALL_EVENTS];
 
-    // Search by title/description/location
     const q = query.trim().toLowerCase();
     if (q) {
       list = list.filter((e) =>
@@ -130,32 +130,23 @@ export default function Explore() {
       );
     }
 
-    // Category
     if (category !== "All") {
       list = list.filter((e) => e.category === category);
     }
 
-    // Date range
     if (startDate) {
       const s = new Date(startDate);
       list = list.filter((e) => new Date(e.date) >= s);
     }
     if (endDate) {
-      const e = new Date(endDate);
-      list = list.filter((ev) => new Date(ev.date) <= e);
+      const ed = new Date(endDate);
+      list = list.filter((e) => new Date(e.date) <= ed);
     }
 
-    // Sort
     list.sort((a, b) => {
-      if (sort === "date-asc") {
-        return new Date(a.date) - new Date(b.date);
-      }
-      if (sort === "date-desc") {
-        return new Date(b.date) - new Date(a.date);
-      }
-      if (sort === "title-asc") {
-        return a.title.localeCompare(b.title);
-      }
+      if (sort === "date-asc") return new Date(a.date) - new Date(b.date);
+      if (sort === "date-desc") return new Date(b.date) - new Date(a.date);
+      if (sort === "title-asc") return a.title.localeCompare(b.title);
       return 0;
     });
 
@@ -218,7 +209,7 @@ export default function Explore() {
             </select>
           </div>
 
-          {/* Date range */}
+          {/* Dates */}
           <div>
             <label className="block text-xs font-medium text-slate-300">
               From

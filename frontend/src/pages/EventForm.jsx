@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function EventForm({ mode }) {
   const navigate = useNavigate();
   const { id } = useParams(); // for edit
+
   const [form, setForm] = useState({
     title: "",
     date: "",
@@ -14,10 +15,9 @@ export default function EventForm({ mode }) {
   });
   const [error, setError] = useState("");
 
-  // 🔹 Load event data if editing (mock for now)
+  // Load event data if editing (mock for now)
   useEffect(() => {
     if (mode === "edit" && id) {
-      // Pretend fetch event by ID
       const mockEvent = {
         id,
         title: "Tech Fest 2025",
@@ -53,86 +53,86 @@ export default function EventForm({ mode }) {
   };
 
   return (
-    <div className="mx-auto w-screen max-w-2xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-      <h1 className="text-2xl font-bold text-slate-900">
+    <div className="mx-auto w-screen max-w-2xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-lg">
+      <h1 className="text-2xl font-bold text-white">
         {mode === "create" ? "Create New Event" : "Edit Event"}
       </h1>
-      <p className="mt-1 text-slate-600 text-sm">
+      <p className="mt-1 text-sm text-slate-300">
         {mode === "create"
           ? "Fill in the details to create a new event."
           : "Update your event details below."}
       </p>
 
       {error && (
-        <div className="mt-3 rounded-lg bg-red-100 text-red-700 px-3 py-2 text-sm">
+        <div className="mt-3 rounded-lg bg-red-500/15 text-red-300 ring-1 ring-red-500/30 px-3 py-2 text-sm">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-5">
         <div>
-          <label className="block text-sm font-medium text-slate-700">
-            Title *
+          <label className="block text-sm font-medium text-slate-200">
+            Title <span className="text-red-300">*</span>
           </label>
           <input
             type="text"
             name="title"
             value={form.title}
             onChange={handleChange}
-            className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 outline-none transition"
             placeholder="Event title"
           />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-slate-700">
-              Date *
+            <label className="block text-sm font-medium text-slate-200">
+              Date <span className="text-red-300">*</span>
             </label>
             <input
               type="date"
               name="date"
               value={form.date}
               onChange={handleChange}
-              className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 outline-none transition [color-scheme:dark]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700">
-              Location *
+            <label className="block text-sm font-medium text-slate-200">
+              Location <span className="text-red-300">*</span>
             </label>
             <input
               type="text"
               name="location"
               value={form.location}
               onChange={handleChange}
-              className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 outline-none transition"
               placeholder="e.g. Auditorium A"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700">
+          <label className="block text-sm font-medium text-slate-200">
             Category
           </label>
           <select
             name="category"
             value={form.category}
             onChange={handleChange}
-            className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 outline-none transition"
           >
-            <option>General</option>
-            <option>Technology</option>
-            <option>Workshop</option>
-            <option>Business</option>
-            <option>Music</option>
-            <option>Sports</option>
+            <option className="bg-neutral-900">General</option>
+            <option className="bg-neutral-900">Technology</option>
+            <option className="bg-neutral-900">Workshop</option>
+            <option className="bg-neutral-900">Business</option>
+            <option className="bg-neutral-900">Music</option>
+            <option className="bg-neutral-900">Sports</option>
           </select>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700">
+          <label className="block text-sm font-medium text-slate-200">
             Image URL
           </label>
           <input
@@ -140,13 +140,13 @@ export default function EventForm({ mode }) {
             name="image"
             value={form.image}
             onChange={handleChange}
-            className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 outline-none transition"
             placeholder="https://example.com/image.jpg"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700">
+          <label className="block text-sm font-medium text-slate-200">
             Description
           </label>
           <textarea
@@ -154,14 +154,14 @@ export default function EventForm({ mode }) {
             value={form.description}
             onChange={handleChange}
             rows="4"
-            className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 outline-none transition"
             placeholder="Describe your event..."
           />
         </div>
 
         <button
           type="submit"
-          className="w-full rounded-full bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition"
+          className="w-full rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 ring-1 ring-white/10 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
           {mode === "create" ? "Create Event" : "Save Changes"}
         </button>
